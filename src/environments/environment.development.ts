@@ -1,7 +1,8 @@
 export const environment = {
-  firebaseConfig : {
+  firebaseConfig: {
     apiKey: "AIzaSyDAEjTpz8Jwhymfif2fVbCrXAuDsfHfzeQ",
     authDomain: "angular-general-practice.firebaseapp.com",
+    databaseURL: "https://angular-general-practice-default-rtdb.firebaseio.com",
     projectId: "angular-general-practice",
     storageBucket: "angular-general-practice.appspot.com",
     messagingSenderId: "905374891134",
