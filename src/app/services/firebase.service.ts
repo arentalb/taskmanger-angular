@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Task, TaskState} from "../models/task";
-import {map, Observable} from "rxjs";
+import {filter, from, map, Observable, take, tap} from "rxjs";
 import {AngularFireDatabase, AngularFireList} from "@angular/fire/compat/database";
 
 
@@ -28,9 +28,10 @@ export class FirebaseService {
     );
   }
 
-  getTask(taskId: string): Task {
-
-    return {name: "null", description: "", state: TaskState.done}
+  getTask(taskId: string): Observable<Task> {
+    return this.firebaseList.valueChanges().pipe(
+      map(tasks => tasks.find(task => task.id === taskId))
+    );
   }
 
   createTask(task: Task): Task {
@@ -38,8 +39,12 @@ export class FirebaseService {
     return {name: "null", description: "", state: TaskState.done}
   }
 
-  updateTask(taskId: string, task: Task) {
+  updateTask(taskId: string, taskState: TaskState):Observable<void> {
+    const taskRef = this.firebaseDatabse.object<Task>(`/tasks/${taskId}`);
 
+    return from(taskRef.update({ state: taskState })).pipe(
+      take(1)// if your double-clicked quickly it only take one of them
+    )
   }
 
   deletTask(taskId: string) {
