@@ -12,6 +12,7 @@ import {TaskComponent} from "./components/task/task.component";
 import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireStorageModule} from "@angular/fire/compat/storage";
 import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     // provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     // provideAuth(() => getAuth()),
     // provideFirestore(() => getFirestore()),

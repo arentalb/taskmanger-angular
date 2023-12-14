@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Task, TaskState} from "../models/task";
-import {filter, from, map, Observable, take, tap} from "rxjs";
+import {filter, from, map, Observable, switchMap, take, tap} from "rxjs";
 import {AngularFireDatabase, AngularFireList} from "@angular/fire/compat/database";
 
 
@@ -34,9 +34,19 @@ export class FirebaseService {
     );
   }
 
-  createTask(task: Task): Task {
+  createTask(task: Task): Observable<string> {
+    const taskRef = this.firebaseDatabase.list<Task>('/tasks');
 
-    return {name: "null", description: "", state: TaskState.done}
+    return from(taskRef.push(task)).pipe(
+      switchMap((result) => {
+        const taskId = result.key;
+        const updatedTask: Task = { ...task, id: taskId };
+
+        return from(taskRef.update(taskId, updatedTask));
+      }),
+      map(() => 'created'),
+      take(1)
+    );
   }
 
   updateTask(taskId: string, taskState: TaskState):Observable<void> {
