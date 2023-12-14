@@ -8,10 +8,18 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
 import {environment} from "../environments/environment";
+import { TaskListComponent } from './components/task-list/task-list.component';
+import { TaskDetailComponent } from './components/task-detail/task-detail.component';
+import { NewTaskComponent } from './components/new-task/new-task.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
-    AppComponent],
+    AppComponent,
+    TaskListComponent,
+    TaskDetailComponent,
+    NewTaskComponent,
+    PageNotFoundComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
