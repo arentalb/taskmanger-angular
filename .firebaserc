@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angular-general-practice": {
+      "hosting": {
+        "angular-general-practice": [
+          "angular-general-practice"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angular-general-practice"
+  }
+}

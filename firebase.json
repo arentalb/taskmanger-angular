@@ -1,0 +1,12 @@
+{
+  "hosting": [
+    {
+      "target": "angular-general-practice",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ],
+  "database": {
+    "rules": "database.rules.json"
+  }
+}
