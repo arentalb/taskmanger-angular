@@ -22,9 +22,15 @@
           {{task.state}}
         </div>
 
-        <button (click)="onSave()" class="mt-10">
-          <img alt="" height="30" src="assets/save.svg" width="30">
-        </button>
+       <div class="mt-10 gap-x-2 flex">
+         <button (click)="onDelete(task.id)" >
+           <img alt="" height="30" src="assets/trash.svg" width="30">
+         </button>
+         <button (click)="onSave()" >
+           <img alt="" height="30" src="assets/save.svg" width="30">
+         </button>
+
+       </div>
       </div>
 
     </div>

@@ -11,13 +11,13 @@ export class FirebaseService {
 
   firebaseList: AngularFireList<Task>
 
-  constructor(private firebaseDatabse: AngularFireDatabase) {
-    this.firebaseList = firebaseDatabse.list("tasks")
+  constructor(private firebaseDatabase: AngularFireDatabase) {
+    this.firebaseList = firebaseDatabase.list("tasks")
   }
 
 
   getTasks(): Observable<Task[]> {
-    return this.firebaseDatabse.list("tasks").snapshotChanges().pipe(
+    return this.firebaseDatabase.list("tasks").snapshotChanges().pipe(
       map(actions => {
         return actions.map(action => {
           const key = action.payload.key as string;
@@ -40,14 +40,18 @@ export class FirebaseService {
   }
 
   updateTask(taskId: string, taskState: TaskState):Observable<void> {
-    const taskRef = this.firebaseDatabse.object<Task>(`/tasks/${taskId}`);
+    const taskRef = this.firebaseDatabase.object<Task>(`/tasks/${taskId}`);
 
     return from(taskRef.update({ state: taskState })).pipe(
       take(1)// if your double-clicked quickly it only take one of them
     )
   }
 
-  deletTask(taskId: string) {
+  deleteTask(taskId: string):Observable<void> {
+    const taskRef = this.firebaseDatabase.object<Task>(`/tasks/${taskId}`);
 
+    return from(taskRef.remove()).pipe(
+      take(1)// if your double-clicked quickly it only take one of them
+    )
   }
 }

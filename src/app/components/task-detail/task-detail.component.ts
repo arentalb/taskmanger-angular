@@ -9,9 +9,12 @@ import {FirebaseService} from "../../services/firebase.service";
   styleUrl: './task-detail.component.css'
 })
 export class TaskDetailComponent implements OnInit {
+  protected readonly TaskState = TaskState;
+
 
   task :Task
   baseState :TaskState
+
   constructor(private activeRoute :ActivatedRoute , private firebaseService :FirebaseService , private router :Router){
 
   }
@@ -52,5 +55,11 @@ export class TaskDetailComponent implements OnInit {
     }
   }
 
-  protected readonly TaskState = TaskState;
+
+  onDelete(taskId :string ) {
+    this.firebaseService.deleteTask(taskId).subscribe(()=>{
+      this.router.navigate(["/tasks"])
+
+    })
+  }
 }
