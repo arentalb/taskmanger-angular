@@ -12,6 +12,7 @@ import { TaskListComponent } from './components/task-list/task-list.component';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 import { NewTaskComponent } from './components/new-task/new-task.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import {TaskComponent} from "./components/task/task.component";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     TaskListComponent,
     TaskDetailComponent,
     NewTaskComponent,
-    PageNotFoundComponent],
+    PageNotFoundComponent,
+    TaskComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
