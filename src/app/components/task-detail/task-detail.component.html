@@ -1,12 +1,16 @@
 <div class="h-screen bg-gray-200">
 
-  <div class="flex justify-center items-center flex-col p-10" *ngIf="task ">
+
+  <div class="flex justify-center items-center flex-col p-10" >
 
     <div class=" flex justify-start sm:justify-center w-full ">
       <p class="mb-4  font-extrabold leading-none tracking-tight   text-6xl text-gray-800 ">edit task </p>
     </div>
+    <div *ngIf="isLoading">
+      <app-loading></app-loading>
+    </div>
 
-    <div class="max-w-sm p-6  border flex flex-col justify-between rounded-lg shadow bg-gray-800 border-gray-700 w-80 min-h-full">
+    <div *ngIf="task && !isLoading" class="max-w-sm p-6  border flex flex-col justify-between rounded-lg shadow bg-gray-800 border-gray-700 w-80 min-h-full">
 
 
       <div>
@@ -35,7 +39,7 @@
 
     </div>
 
-    <div class="mt-6">
+    <div class="mt-6" *ngIf="!isLoading">
 
       <div
         (click)="onChange(TaskState.inProgress)"

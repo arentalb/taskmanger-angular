@@ -14,6 +14,7 @@ export class TaskDetailComponent implements OnInit {
 
   task :Task
   baseState :TaskState
+  isLoading = true
 
   constructor(private activeRoute :ActivatedRoute , private firebaseService :FirebaseService , private router :Router){
 
@@ -26,6 +27,8 @@ export class TaskDetailComponent implements OnInit {
       this.task = task
       this.baseState = task.state
       console.log(task)
+      this.isLoading = false
+
     })
   }
 
@@ -47,7 +50,10 @@ export class TaskDetailComponent implements OnInit {
   }
   onSave() {
     if (this.baseState != this.task.state){
+      this.isLoading = true
+
       this.firebaseService.updateTask(this.task.id ,this.task.state).subscribe(()=>{
+        this.isLoading = false
         this.router.navigate(["/tasks"])
       })
     }else {
@@ -57,7 +63,9 @@ export class TaskDetailComponent implements OnInit {
 
 
   onDelete(taskId :string ) {
+    this.isLoading = true
     this.firebaseService.deleteTask(taskId).subscribe(()=>{
+      this.isLoading = false
       this.router.navigate(["/tasks"])
 
     })
