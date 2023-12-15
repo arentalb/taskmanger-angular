@@ -9,12 +9,26 @@ import {AuthService} from "../../services/auth.service";
 })
 export class LoginComponent {
 
+  errorMessage :string = null
+  showInvalidInputs :boolean = false
   constructor(private authService :AuthService){}
 
   login(f: NgForm) {
-    let email = f.value.email
-    let password = f.value.password
+    if (f.valid){
+      console.log(f.valid)
 
-    this.authService.login(email ,password)
+      let email = f.value.email
+      let password = f.value.password
+
+      this.authService.login(email ,password).subscribe(()=>{
+
+      },error => {
+
+        this.errorMessage = error
+
+      })
+    }else {
+      this.showInvalidInputs = true
+    }
   }
 }

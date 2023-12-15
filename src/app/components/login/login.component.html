@@ -5,26 +5,31 @@
     <div class=" flex justify-center  ">
       <p class="mb-4  font-extrabold leading-none tracking-tight   text-6xl text-gray-800 ">login </p>
     </div>
-
+    <p *ngIf="errorMessage " class="text-md text-red-700">{{errorMessage}}  </p>
 
     <form #f="ngForm" (ngSubmit)="login(f)" class="max-w-sm mx-auto flex flex-col w-64">
 
       <div class="mb-5">
         <label class="block mb-2 text-sm font-medium text-gray-900 " for="email">email </label>
-        <input class=" border   text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500 " id="email"
+        <input #email="ngModel" class=" border   text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500 " id="email"
                name="email"
                ngModel
+               pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
                placeholder="example@example.com"
                required type="email">
+        <p *ngIf="email.invalid && showInvalidInputs" class="text-sm text-red-700">email is not valid </p>
+
       </div>
 
       <div class="mb-5 ">
         <label class="block mb-2 text-sm font-medium text-gray-900 " for="password">password </label>
-        <input class=" border   text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500 " id="password"
+        <input #password="ngModel" class=" border   text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500 " id="password"
                name="password"
                ngModel
                placeholder="x x x x x x x x "
                required type="password">
+        <p *ngIf="password.invalid && showInvalidInputs" class="text-sm text-red-700">password is not valid  </p>
+
       </div>
 
 

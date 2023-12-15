@@ -28,10 +28,10 @@ export class AuthService {
   }
   login(email :string, password :string ) {
     console.log(email, password)
-    this.fireAuth.signInWithEmailAndPassword( email ,password).then((credential)=>{
+    return from(this.fireAuth.signInWithEmailAndPassword( email ,password).then((credential)=>{
       console.log("loginein ")
       localStorage.clear()
-       localStorage.setItem('user', JSON.stringify(credential.user));
+      localStorage.setItem('user', JSON.stringify(credential.user));
       this.router.navigate(['/tasks']);
 
       // console.log(cridential.user)
@@ -39,7 +39,18 @@ export class AuthService {
       // console.log(cridential.additionalUserInfo)
       // console.log(cridential.operationType)
 
-    })
+    }))
+      .pipe(
+        catchError((error) => {
+          if (error.message ==="Firebase: The supplied auth credential is incorrect, malformed or has expired. (auth/invalid-credential)."){
+            return throwError('invalid credential');
+          }
+          if (error.message === "Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests)."){
+            return throwError('too many request for this account , this account temporally blocked ');
+          }
+          return throwError('unknown error ');
+        })
+      )
   }
 
   signup( user :User ) {
@@ -57,7 +68,7 @@ export class AuthService {
        if (error.message ==="Firebase: The email address is already in use by another account. (auth/email-already-in-use)."){
          return throwError('This email is taken');
        }
-       return throwError('unknowen error ');
+       return throwError('unknown error ');
      })
    )
   }
