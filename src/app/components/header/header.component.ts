@@ -10,6 +10,7 @@ import {Subscription} from "rxjs";
 export class HeaderComponent implements OnInit ,OnDestroy{
 
   isLoggindIn :boolean = false
+  menuState :boolean = false
   constructor(private authservice : AuthService){
 
   }
@@ -33,5 +34,9 @@ export class HeaderComponent implements OnInit ,OnDestroy{
 
   OnLogout() {
     this.authservice.logout()
+  }
+
+  toggleMenu() {
+    this.menuState = !this.menuState
   }
 }
