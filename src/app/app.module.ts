@@ -14,6 +14,7 @@ import {AngularFireStorageModule} from "@angular/fire/compat/storage";
 import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
 import {FormsModule} from "@angular/forms";
 import { FilterComponent } from './components/filter/filter.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FilterComponent } from './components/filter/filter.component';
     NewTaskComponent,
     PageNotFoundComponent,
     TaskComponent,
-    FilterComponent],
+    FilterComponent,
+    HeaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

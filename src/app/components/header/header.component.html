@@ -1,0 +1,19 @@
+<div class="bg-gray-800 px-16 py-5 flex items-center justify-between">
+ <div class="flex items-center gap-10">
+   <img src="assets/logo.svg" width="40" alt="" >
+   <a [routerLink]="['tasks']" class=" font-normal text-lg text-gray-100 border-b-2 border-b-gray-100
+  hover:border-b-blue-400">tasks</a>
+   <a [routerLink]="['newtask']" class=" font-normal text-lg text-gray-100 border-b-2 border-b-gray-100
+  hover:border-b-blue-400">add task </a>
+
+ </div>
+  <div>
+    <a *ngIf="isLoggindIn" [routerLink]="['login']" class=" font-normal text-lg text-gray-100 border-b-2 border-b-gray-100
+  hover:border-b-blue-400">login  </a>
+
+    <a *ngIf="!isLoggindIn"  [routerLink]="['profile']">
+      <img src="assets/profile.svg" width="40" alt="" >
+    </a>
+  </div>
+
+</div>
