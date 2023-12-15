@@ -1,0 +1,29 @@
+<div class="ml-8 flex justify-start items-center gap-x-4">
+
+  <div>
+    <p>apply filter : </p>
+  </div>
+
+
+
+  <button (click)="applyFilter(TaskState.pending)"
+          [ngClass]="{'bg-red-700': activeFilter === TaskState.pending ,'bg-gray-800' :activeFilter != TaskState.pending  }"
+          class="  text-white    font-medium rounded-lg text-sm px-5 py-2.5   ">
+    pending
+  </button>
+  <button  (click)="applyFilter(TaskState.inProgress)"
+           [ngClass]="{'bg-blue-700': activeFilter === TaskState.inProgress ,'bg-gray-800' :activeFilter != TaskState.inProgress  }"
+           class="  text-white    font-medium rounded-lg text-sm px-5 py-2.5   ">
+    in progress
+  </button>
+  <button (click)="applyFilter(TaskState.done)"
+          [ngClass]="{'bg-green-700': activeFilter === TaskState.done ,'bg-gray-800' :activeFilter != TaskState.done  }"
+          class="  text-white   font-medium rounded-lg text-sm px-5 py-2.5    ">
+    done
+  </button>
+  <button (click)="reset()"
+          class="  text-white  bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5    ">
+    reset
+  </button>
+
+</div>
