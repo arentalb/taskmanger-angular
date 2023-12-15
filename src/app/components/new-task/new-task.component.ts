@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {Task, TaskState} from "../../models/task";
 import {NgForm} from "@angular/forms";
 import {FirebaseService} from "../../services/firebase.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-new-task',
@@ -11,16 +10,21 @@ import {Router} from "@angular/router";
 })
 export class NewTaskComponent {
 
+  isLoading = false
 
   constructor(  private firebaseService :FirebaseService ) {
   }
 
   OnSubmit(form :NgForm) {
     if (form.valid){
+      this.isLoading = true
+
       let task:Task = {...form.value ,state :TaskState.pending}
       console.log(task)
       this.firebaseService.createTask(task).subscribe(()=>{
         form.reset();
+        this.isLoading = false
+
       })
     }
   }
