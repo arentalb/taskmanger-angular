@@ -1,4 +1,4 @@
-import {Component, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, HostListener, OnInit, Output} from '@angular/core';
 import {TaskState} from "../../models/task";
 import {Subject} from "rxjs";
 
@@ -7,12 +7,15 @@ import {Subject} from "rxjs";
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.css'
 })
-export class FilterComponent {
+export class FilterComponent implements OnInit {
   protected readonly TaskState = TaskState;
 
   activeFilter :TaskState
+  toiggleState:boolean = false
 
- @Output() filter :Subject<TaskState> = new Subject<TaskState>();
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  @Output() filter :Subject<TaskState> = new Subject<TaskState>();
 
   applyFilter(state :TaskState){
     this.activeFilter = state
@@ -26,4 +29,22 @@ export class FilterComponent {
   }
 
 
+  toggleFilter() {
+    this.toiggleState = !this.toiggleState
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.checkScreenWidth();
+    this.cdr.detectChanges(); // Trigger change detection explicitly
+  }
+
+  ngOnInit(): void {
+    this.checkScreenWidth();
+  }
+
+  private checkScreenWidth(): void {
+    // You can adjust this threshold based on your design
+    const threshold = 768;
+    this.toiggleState = window.innerWidth <= threshold;
+  }
 }

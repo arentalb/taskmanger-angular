@@ -1,29 +1,34 @@
-<div class="ml-8 flex justify-start items-center gap-x-4">
+<div class="sm:ml-8 flex flex-col sm:flex-row justify-start items-start sm:items-center  gap-x-4">
 
-  <div>
+  <div class="hidden sm:inline">
     <p>apply filter : </p>
+  </div>
+  <div (click)="toggleFilter()"
+    class=" block  sm:hidden text-white  bg-gray-800  font-medium rounded-lg text-sm px-5 py-2.5   ">
+    apply filter
   </div>
 
 
-
-  <button (click)="applyFilter(TaskState.pending)"
-          [ngClass]="{'bg-red-700': activeFilter === TaskState.pending ,'bg-gray-800' :activeFilter != TaskState.pending  }"
-          class="  text-white    font-medium rounded-lg text-sm px-5 py-2.5   ">
-    pending
-  </button>
-  <button  (click)="applyFilter(TaskState.inProgress)"
-           [ngClass]="{'bg-blue-700': activeFilter === TaskState.inProgress ,'bg-gray-800' :activeFilter != TaskState.inProgress  }"
+ <div class=" flex flex-wrap sm:mt-0 mt-4 gap-4" *ngIf="!toiggleState">
+   <button (click)="applyFilter(TaskState.pending)"
+           [ngClass]="{'bg-red-700': activeFilter === TaskState.pending ,'bg-gray-800' :activeFilter != TaskState.pending  }"
            class="  text-white    font-medium rounded-lg text-sm px-5 py-2.5   ">
-    in progress
-  </button>
-  <button (click)="applyFilter(TaskState.done)"
-          [ngClass]="{'bg-green-700': activeFilter === TaskState.done ,'bg-gray-800' :activeFilter != TaskState.done  }"
-          class="  text-white   font-medium rounded-lg text-sm px-5 py-2.5    ">
-    done
-  </button>
-  <button (click)="reset()"
-          class="  text-white  bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5    ">
-    reset
-  </button>
+     pending
+   </button>
+   <button  (click)="applyFilter(TaskState.inProgress)"
+            [ngClass]="{'bg-blue-700': activeFilter === TaskState.inProgress ,'bg-gray-800' :activeFilter != TaskState.inProgress  }"
+            class="  text-white    font-medium rounded-lg text-sm px-5 py-2.5   ">
+     in progress
+   </button>
+   <button (click)="applyFilter(TaskState.done)"
+           [ngClass]="{'bg-green-700': activeFilter === TaskState.done ,'bg-gray-800' :activeFilter != TaskState.done  }"
+           class="  text-white   font-medium rounded-lg text-sm px-5 py-2.5    ">
+     done
+   </button>
+   <button (click)="reset()"
+           class="  text-white  bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5    ">
+     reset
+   </button>
+ </div>
 
 </div>
