@@ -1,19 +1,24 @@
-<div class="bg-gray-800 px-16 py-5 flex items-center justify-between">
+<div class="border-b-4 border-b-gray-800 bg-gray-200 px-16 py-5 flex items-center justify-between">
  <div class="flex items-center gap-10">
    <img src="assets/logo.svg" width="40" alt="" >
-   <a [routerLink]="['tasks']" class=" font-normal text-lg text-gray-100 border-b-2 border-b-gray-100
-  hover:border-b-blue-400">tasks</a>
-   <a [routerLink]="['newtask']" class=" font-normal text-lg text-gray-100 border-b-2 border-b-gray-100
-  hover:border-b-blue-400">add task </a>
+   <a *ngIf="isLoggindIn" [routerLink]="['tasks']" class="text-gray-800 font-normal text-lg  border-b-2 border-b-gray-400
+  hover:border-b-blue-900">tasks</a>
+   <a *ngIf="isLoggindIn" [routerLink]="['newtask']" class="text-gray-800 font-normal text-lg  border-b-2 border-b-gray-400
+  hover:border-b-blue-900">add task </a>
 
  </div>
-  <div>
-    <a *ngIf="isLoggindIn" [routerLink]="['login']" class=" font-normal text-lg text-gray-100 border-b-2 border-b-gray-100
-  hover:border-b-blue-400">login  </a>
+  <div class="flex gap-x-4">
+    <a *ngIf="!isLoggindIn" [routerLink]="['login']" class=" text-gray-800 font-normal text-lg  border-b-2 border-b-gray-400
+  hover:border-b-blue-900">login  </a>
+    <a *ngIf="!isLoggindIn" [routerLink]="['signup']" class="text-gray-800  font-normal text-lg  border-b-2 border-b-gray-400
+  hover:border-b-blue-900">signup  </a>
 
-    <a *ngIf="!isLoggindIn"  [routerLink]="['profile']">
+    <a *ngIf="isLoggindIn"  [routerLink]="['profile']">
       <img src="assets/profile.svg" width="40" alt="" >
     </a>
+    <button *ngIf="isLoggindIn"  (click)="OnLogout()">
+      <img src="assets/logout.svg" width="40" alt="" >
+    </button>
   </div>
 
 </div>

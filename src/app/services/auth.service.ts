@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {User} from "../models/user";
 import {Router} from "@angular/router";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,15 @@ export class AuthService {
 
   constructor(private router :Router ,private fireAuth :AngularFireAuth , private firestore :AngularFirestore) {
   }
-
+  loginState :Subject<boolean>= new Subject<boolean>()
   isUserLoginedIn(){
     if (localStorage.getItem('user')){
       console.log("user exists ")
+      this.loginState.next(true)
       return true
     }else {
       console.log("user dose not  exists ")
+      this.loginState.next(false)
       this.router.navigate(['/login']);
 
       return  false
@@ -53,5 +56,11 @@ export class AuthService {
      })
 
     })
+  }
+
+  logout() {
+    localStorage.clear()
+    this.router.navigate(['/login'])
+    this.loginState.next(false)
   }
 }
