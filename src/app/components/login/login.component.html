@@ -7,7 +7,9 @@
     </div>
     <p *ngIf="errorMessage " class="text-md text-red-700">{{errorMessage}}  </p>
 
-    <form #f="ngForm" (ngSubmit)="login(f)" class="max-w-sm mx-auto flex flex-col w-64">
+    <app-loading *ngIf="isLoading"></app-loading>
+
+    <form *ngIf="!isLoading" #f="ngForm" (ngSubmit)="login(f)" class="max-w-sm mx-auto flex flex-col w-64">
 
       <div class="mb-5">
         <label class="block mb-2 text-sm font-medium text-gray-900 " for="email">email </label>

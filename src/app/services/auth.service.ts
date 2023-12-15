@@ -32,7 +32,6 @@ export class AuthService {
       console.log("loginein ")
       localStorage.clear()
       localStorage.setItem('user', JSON.stringify(credential.user));
-      this.router.navigate(['/tasks']);
 
       // console.log(cridential.user)
       // console.log(cridential.credential)
