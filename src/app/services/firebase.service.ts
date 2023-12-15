@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Task, TaskState} from "../models/task";
-import { from, map, Observable, switchMap, take, tap} from "rxjs";
+import {from, map, Observable, of, switchMap, take, tap} from "rxjs";
 import {AngularFireDatabase, AngularFireList} from "@angular/fire/compat/database";
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
+import {User} from "../models/user";
 
 
 @Injectable({
@@ -11,7 +13,7 @@ export class FirebaseService {
 
   // firebaseList: AngularFireList<Task>
   userUID :string = null
-  constructor(private firebaseDatabase: AngularFireDatabase) {
+  constructor(private firebaseDatabase: AngularFireDatabase ,  private firestore :AngularFirestore) {
     // this.firebaseList = firebaseDatabase.list(`tasks/${this.userUID}`)
     const userString = localStorage.getItem('user');
     const userObject = JSON.parse(userString);
@@ -85,6 +87,26 @@ export class FirebaseService {
           const data = action.payload.val() as Task;
           return { id: key, ...data };
         });
+      })
+    );
+  }
+
+  getUserProfile(userEmail: string): Observable<User | undefined> {
+    const userCollection: AngularFirestoreCollection<User> = this.firestore.collection('users', ref => ref.where('email', '==', userEmail));
+
+    return userCollection.snapshotChanges().pipe(
+      map(actions => {
+        const user = actions.map(a => {
+          const data = a.payload.doc.data() as User;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+
+        if (user.length > 0) {
+          return user[0];
+        } else {
+          return undefined;
+        }
       })
     );
   }
