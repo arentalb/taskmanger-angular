@@ -6,12 +6,13 @@ import {NewTaskComponent} from "./components/new-task/new-task.component";
 import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.component";
 import {LoginComponent} from "./components/login/login.component";
 import {SignupComponent} from "./components/signup/signup.component";
+import {authGuard} from "./services/auth.guard";
 
 const routes: Routes = [
   { path: '', redirectTo: 'tasks', pathMatch: 'full' },
-  { path: 'tasks', component: TaskListComponent },
-  { path: 'task/:id', component: TaskDetailComponent },
-  { path: 'newtask', component: NewTaskComponent },
+  { path: 'tasks', component: TaskListComponent ,canActivate:[authGuard]  },
+  { path: 'task/:id', component: TaskDetailComponent,canActivate:[authGuard] },
+  { path: 'newtask', component: NewTaskComponent ,canActivate:[authGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: '**', component: PageNotFoundComponent },
