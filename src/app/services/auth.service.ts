@@ -3,7 +3,7 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {User} from "../models/user";
 import {Router} from "@angular/router";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {Subject} from "rxjs";
+import {catchError, from, Subject, throwError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -43,19 +43,23 @@ export class AuthService {
   }
 
   signup( user :User ) {
-    console.log(user.username, user.email , user.password)
-    this.fireAuth.createUserWithEmailAndPassword(  user.email , user.password).then((cridential)=>{
-      console.log("signup ")
-      // console.log(cridential.user)
-      // console.log(cridential.credential)
-      // console.log(cridential.additionalUserInfo)
-      // console.log(cridential.operationType)
+   return from( this.fireAuth.createUserWithEmailAndPassword(  user.email , user.password).then((cridential)=>{
+     // console.log(cridential.user)
+     // console.log(cridential.credential)
+     // console.log(cridential.additionalUserInfo)
+     // console.log(cridential.operationType)
 
      this.firestore.collection("users/").add(user).then(()=>{
-       console.log(`this user ${user } signed up `)
      })
 
-    })
+   })).pipe(
+     catchError((error) => {
+       if (error.message ==="Firebase: The email address is already in use by another account. (auth/email-already-in-use)."){
+         return throwError('This email is taken');
+       }
+       return throwError('unknowen error ');
+     })
+   )
   }
 
   logout() {

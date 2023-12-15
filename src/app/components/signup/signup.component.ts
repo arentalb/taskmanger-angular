@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {User} from "../../models/user";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -9,13 +10,29 @@ import {User} from "../../models/user";
   styleUrl: './signup.component.css'
 })
 export class SignupComponent {
-  constructor(private authService :AuthService){}
+  password: string;
+  confirmPassword: string;
+  showInvalidInputs :boolean = false
+  errorMessage :string = null
+  constructor(private authService :AuthService ,private router :Router){}
+
+  checkPasswordMatch (){
+    return  (this.password === this.confirmPassword)
+  }
 
   signup(f: NgForm) {
-
-    let user :User ={username:f.value.username ,email: f.value.email,password: f.value.password}
-
-
-    this.authService.signup(user)
+    if (f.valid &&this.checkPasswordMatch()){
+      let user :User ={username:f.value.username ,email: f.value.email,password: f.value.password}
+      this.authService.signup(user).subscribe(()=>{
+        this.router.navigate(['/login']);
+      },error => {
+        this.errorMessage = error
+      })
+    }else {
+      this.showInvalidInputs = true
+    }
   }
+
+
+
 }
