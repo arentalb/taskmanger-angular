@@ -15,6 +15,8 @@ import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
 import {FormsModule} from "@angular/forms";
 import { FilterComponent } from './components/filter/filter.component';
 import { HeaderComponent } from './components/header/header.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { HeaderComponent } from './components/header/header.component';
     PageNotFoundComponent,
     TaskComponent,
     FilterComponent,
-    HeaderComponent],
+    HeaderComponent,
+    LoginComponent,
+    SignupComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
