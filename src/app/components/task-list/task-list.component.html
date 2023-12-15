@@ -4,13 +4,17 @@
   <div class=" flex justify-start sm:justify-center  ">
     <p class="text-start  mb-4  font-extrabold leading-none tracking-tight   text-6xl text-gray-800 ">all Tasks</p>
   </div>
-  <div>
+  <div class="flex justify-center">
+    <app-loading *ngIf="isLoading"></app-loading>
+
+  </div>
+
+  <div *ngIf="!isLoading">
     <app-filter (filter)="applyFilter($event)"></app-filter>
   </div>
-  <div class="flex justify-evenly mt-10 flex-wrap gap-2">
+  <div *ngIf="!isLoading" class="flex justify-evenly mt-10 flex-wrap gap-2">
 
     <app-task *ngFor="let task of tasks" [task]="task"></app-task>
-
 
   </div>
 

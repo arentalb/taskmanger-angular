@@ -10,6 +10,7 @@ import {TaskState} from "../../models/task";
 })
 export class TaskListComponent implements OnInit {
   tasks: Task[] = []
+  isLoading = true
 
   constructor(private firebaseService: FirebaseService) {
 
@@ -21,6 +22,7 @@ export class TaskListComponent implements OnInit {
   getTasks(){
     this.firebaseService.getTasks().subscribe((tasks: Task[]) => {
       this.tasks = tasks
+      this.isLoading = false
     })
   }
 
