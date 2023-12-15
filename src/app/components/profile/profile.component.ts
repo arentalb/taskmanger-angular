@@ -10,6 +10,7 @@ import {FirebaseService} from "../../services/firebase.service";
 export class ProfileComponent implements OnInit {
 
   user :User
+  isLoading = true
   constructor(private firebaseService :FirebaseService) {
   }
 
@@ -18,6 +19,7 @@ export class ProfileComponent implements OnInit {
     const userObject = JSON.parse(userString);
     this.firebaseService.getUserProfile(userObject.email).subscribe((data)=>{
       this.user =data
+      this.isLoading = false
     })
 
   }
