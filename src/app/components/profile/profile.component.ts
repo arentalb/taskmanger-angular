@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
         this.isLoading = false
 
       }
-      console.log(this.user)
+
     })
 
   }

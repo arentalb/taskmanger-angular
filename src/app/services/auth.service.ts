@@ -15,11 +15,11 @@ export class AuthService {
   loginState :BehaviorSubject<boolean>= new BehaviorSubject<boolean>(false)
   isUserLoginedIn(){
     if (localStorage.getItem('user')){
-      console.log("user exists ")
+
       this.loginState.next(true)
       return true
     }else {
-      console.log("user dose not  exists ")
+
       this.loginState.next(false)
       this.router.navigate(['/login']);
 
@@ -27,9 +27,9 @@ export class AuthService {
     }
   }
   login(email :string, password :string ) {
-    console.log(email, password)
+
     return from(this.fireAuth.signInWithEmailAndPassword( email ,password).then((credential)=>{
-      console.log("loginein ")
+
       localStorage.clear()
       localStorage.setItem('user', JSON.stringify(credential.user));
       this.loginState.next(true)

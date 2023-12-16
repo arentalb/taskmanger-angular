@@ -45,7 +45,7 @@ export class TaskListComponent implements OnInit {
       this.firebaseService.applyFilter(event).subscribe((tasks)=>{
         this.tasks = tasks
         this.filterApplyed = true
-        console.log(this.tasks)
+
       })
     }
 

@@ -20,7 +20,7 @@ export class NewTaskComponent {
       this.isLoading = true
 
       let task:Task = {...form.value ,state :TaskState.pending}
-      console.log(task)
+
       this.firebaseService.createTask(task).subscribe(()=>{
         form.reset();
         this.isLoading = false

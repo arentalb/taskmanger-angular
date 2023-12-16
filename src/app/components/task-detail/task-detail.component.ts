@@ -22,11 +22,11 @@ export class TaskDetailComponent implements OnInit {
 
   ngOnInit(): void {
    let  taskId = this.activeRoute.snapshot.paramMap.get('id');
-    console.log(taskId)
+
     this.firebaseService.getTask(taskId).subscribe((task)=>{
       this.task = task
       this.baseState = task.state
-      console.log(task)
+
       this.isLoading = false
 
     })
