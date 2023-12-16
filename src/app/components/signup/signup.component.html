@@ -27,6 +27,7 @@
         <input #email='ngModel' class=" border   text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500 " id="email"
                name="email"
                ngModel
+               pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}"
                placeholder="example@example.com"
                required type="email">
         <p *ngIf="email.invalid  && showInvalidInputs" class="text-sm text-red-700">email is not valid </p>

@@ -34,6 +34,7 @@ export class SignupComponent {
         this.errorMessage = error
       })
     }else {
+      this.isLoading = false
       this.showInvalidInputs = true
     }
   }
