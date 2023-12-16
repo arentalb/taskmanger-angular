@@ -8,7 +8,7 @@ import {OnlineService} from "./services/online.service";
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  title = 'angular-general-practice';
+  title = 'task manger ';
   networkMessage: string  = null ;
 
   constructor(private onlineService :OnlineService){
