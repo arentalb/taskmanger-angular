@@ -1,27 +1,81 @@
-# AngularGeneralPractice
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.7.
+# Angular Firebase Task Manager App
 
-## Development server
+Welcome to the Angular Firebase Task Manager App! This app allows users to manage tasks by adding, deleting, editing, and viewing tasks. Users can sign up, log in to access their own task lists, and view their profiles.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The app is currently deployed and accessible at [Task Manager App](https://taskmanger-30570.web.app/).
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- User authentication (sign up and login)
+- Task management (add, delete, edit, view)
+- User-specific task lists
+- User profile view
 
-## Build
+## Technologies Used
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Angular
+- Firebase
 
-## Running unit tests
+## Prerequisites
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Before running the app locally, ensure you have the following installed:
 
-## Running end-to-end tests
+- Node.js and npm
+- Angular CLI
+- Firebase tools
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Getting Started
 
-## Further help
+1. Clone the repository:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+   ```bash
+   git clone https://github.com/arentalb/taskmanger
+   cd your-repo
+
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+
+3. Set up Firebase::
+
+     Create a Firebase project on the 
+[Firebase Console](https://console.firebase.google.com/).
+
+   
+-   Configure your Firebase project in the `src/environments/environment.ts` and `src/environments/environment.prod.ts` files.
+
+3.  Run the app locally:
+
+    ```bash
+    ng serve
+-    Open your browser and navigate to `http://localhost:4200/` to view the app.
+
+
+## Known Issues
+
+As a practice project, the Task Manager app may have known bugs and limitations. These issues are not final and will be addressed as part of the ongoing development process.
+
+## Future Plans
+
+The long-term plan for the Task Manager app includes:
+
+- **Backend Development:** Planning to build a backend for the task management platform using Spring to enhance functionality and data storage.
+
+- **Bug Fixes:** Continuously addressing and resolving existing issues and bugs to improve the project's stability and reliability.
+
+## Contributing
+
+Contributions to this project are welcome. If you'd like to contribute, please open a pull request with your proposed changes.
+
+## License
+
+This project is not associated with any specific open-source license. It is intended for educational and practice purposes, and you are encouraged to use it for your learning and experimentation.
+
+## Acknowledgments
+
+This project was created for self-practice, aiming to improve Angular development skills and gain hands-on experience in building a task management application. Best of luck with your learning journey!
+
+
