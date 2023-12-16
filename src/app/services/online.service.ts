@@ -4,7 +4,7 @@ import {BehaviorSubject} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class OnlineService implements OnInit{
+export class OnlineService implements OnInit {
 
   isConnected$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 

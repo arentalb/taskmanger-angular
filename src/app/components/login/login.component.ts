@@ -10,30 +10,31 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent {
 
-  errorMessage :string = null
-  showInvalidInputs :boolean = false
+  errorMessage: string = null
+  showInvalidInputs: boolean = false
   isLoading = false
 
-  constructor(private authService :AuthService , private router :Router){}
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
   login(f: NgForm) {
-    if (f.valid){
+    if (f.valid) {
       this.isLoading = true
       let email = f.value.email
       let password = f.value.password
 
-      this.authService.login(email ,password).subscribe(()=>{
+      this.authService.login(email, password).subscribe(() => {
         this.isLoading = false
 
         this.router.navigate(['/tasks']);
 
-      },error => {
+      }, error => {
         this.isLoading = false
 
         this.errorMessage = error
 
       })
-    }else {
+    } else {
       this.showInvalidInputs = true
     }
   }

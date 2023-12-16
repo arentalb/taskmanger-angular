@@ -3,16 +3,18 @@
   <div class="flex justify-center items-center flex-col p-10 ">
 
     <div class=" flex justify-center  ">
-      <p class="mb-4  font-extrabold leading-none tracking-tight   text-6xl text-gray-800 ">sign up  </p>
+      <p class="mb-4  font-extrabold leading-none tracking-tight   text-6xl text-gray-800 ">sign up </p>
     </div>
 
     <p *ngIf="errorMessage " class="text-md text-red-700">{{errorMessage}}  </p>
     <app-loading *ngIf="isLoading"></app-loading>
-    <form *ngIf="!isLoading" #f="ngForm" (ngSubmit)="signup(f)" class="max-w-sm mx-auto flex flex-col w-64">
+    <form #f="ngForm" (ngSubmit)="signup(f)" *ngIf="!isLoading" class="max-w-sm mx-auto flex flex-col w-64">
 
       <div class="mb-5">
         <label class="block mb-2 text-sm font-medium text-gray-900 " for="username">username </label>
-        <input #username='ngModel' class=" border   text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500 " id="username"
+        <input #username='ngModel'
+               class=" border   text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500 "
+               id="username"
                name="username"
                ngModel
                placeholder="example"
@@ -21,10 +23,11 @@
       </div>
 
 
-
       <div class="mb-5">
         <label class="block mb-2 text-sm font-medium text-gray-900 " for="email">email </label>
-        <input #email='ngModel' class=" border   text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500 " id="email"
+        <input #email='ngModel'
+               class=" border   text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500 "
+               id="email"
                name="email"
                ngModel
                pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}"
@@ -36,26 +39,31 @@
 
       <div class="mb-5 ">
         <label class="block mb-2 text-sm font-medium text-gray-900 " for="password">password </label>
-        <input #passwordinput='ngModel' class=" border   text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500 " id="password"
+        <input #passwordinput='ngModel'
+               [(ngModel)]="password"
+               class=" border   text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500 "
+               id="password"
                name="password"
                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-               [(ngModel)]="password"
                placeholder="x x x x x x x x "
                required type="password">
         <p *ngIf="passwordinput.invalid  && showInvalidInputs" class="text-sm text-red-700">password is not valid </p>
-        <p *ngIf="passwordinput.invalid  && showInvalidInputs" class="text-xs mt-2"> Use at least 8 characters, including a mix of letters (a-z, A-Z), and numbers or symbols.</p>
+        <p *ngIf="passwordinput.invalid  && showInvalidInputs" class="text-xs mt-2"> Use at least 8 characters,
+          including a mix of letters (a-z, A-Z), and numbers or symbols.</p>
       </div>
 
 
       <div class="mb-5 ">
         <label class="block mb-2 text-sm font-medium text-gray-900 " for="confirmPassword">confirm-password </label>
-        <input   class=" border   text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500 " id="confirmPassword"
-                 name="confirmPassword"
-                 pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                 [(ngModel)]="confirmPassword"
-                 placeholder="x x x x x x x x "
-                 required type="password">
-        <p *ngIf="!checkPasswordMatch()&& showInvalidInputs " class="text-sm text-red-700">password dose not match  </p>
+        <input
+          [(ngModel)]="confirmPassword"
+          class=" border   text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white ring-blue-500 "
+          id="confirmPassword"
+          name="confirmPassword"
+          pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+          placeholder="x x x x x x x x "
+          required type="password">
+        <p *ngIf="!checkPasswordMatch()&& showInvalidInputs " class="text-sm text-red-700">password dose not match </p>
 
       </div>
 

@@ -12,16 +12,16 @@ export class NewTaskComponent {
 
   isLoading = false
 
-  constructor(  private firebaseService :FirebaseService ) {
+  constructor(private firebaseService: FirebaseService) {
   }
 
-  OnSubmit(form :NgForm) {
-    if (form.valid){
+  OnSubmit(form: NgForm) {
+    if (form.valid) {
       this.isLoading = true
 
-      let task:Task = {...form.value ,state :TaskState.pending}
+      let task: Task = {...form.value, state: TaskState.pending}
 
-      this.firebaseService.createTask(task).subscribe(()=>{
+      this.firebaseService.createTask(task).subscribe(() => {
         form.reset();
         this.isLoading = false
 

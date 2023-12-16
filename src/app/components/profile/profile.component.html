@@ -1,37 +1,38 @@
-<div class="h-screen bg-gray-200" >
+<div class="h-screen bg-gray-200">
 
-  <div class="flex justify-start   items-center  flex-col p-10" >
+  <div class="flex justify-start   items-center  flex-col p-10">
 
 
-    <div class="  px-4 py-8 flex flex-col" >
+    <div class="  px-4 py-8 flex flex-col">
 
       <div class=" flex justify-center mb-5 ">
         <p class="mb-4  font-extrabold leading-none tracking-tight   text-6xl text-gray-800 ">your profile</p>
       </div>
 
-      <div *ngIf="isLoading " class="self-center my-14" >
+      <div *ngIf="isLoading " class="self-center my-14">
         <app-loading></app-loading>
       </div>
 
       <div *ngIf="!isLoading && user">
-       <div class="">
-         <p class=" block  text-sm font-medium text-gray-500 ">username :</p>
-         <p class="text-start block mb-2 text-lg font-medium text-gray-900 ">{{user.username}}</p>
-       </div>
+        <div class="">
+          <p class=" block  text-sm font-medium text-gray-500 ">username :</p>
+          <p class="text-start block mb-2 text-lg font-medium text-gray-900 ">{{user.username}}</p>
+        </div>
 
-       <div  class="">
-         <p class=" block  text-sm font-medium text-gray-500 ">email : </p>
-         <p class="  text-start block mb-2 text-lg font-medium text-gray-900 ">{{user.email}}</p>
-       </div>
+        <div class="">
+          <p class=" block  text-sm font-medium text-gray-500 ">email : </p>
+          <p class="  text-start block mb-2 text-lg font-medium text-gray-900 ">{{user.email}}</p>
+        </div>
 
-       <div  class="">
-         <p class=" block  text-sm font-medium text-gray-500 ">password :</p>
-         <p class=" block mb-2 text-lg font-medium text-gray-900 ">{{user.password}}</p>
-       </div>
-     </div>
+        <div class="">
+          <p class=" block  text-sm font-medium text-gray-500 ">password :</p>
+          <p class=" block mb-2 text-lg font-medium text-gray-900 ">{{user.password}}</p>
+        </div>
+      </div>
 
       <div class="flex justify-center">
-        <a [routerLink]="['/tasks']" class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center   "
+        <a [routerLink]="['/tasks']"
+           class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center   "
            type="submit">
           go to home
         </a>

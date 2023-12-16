@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Task} from "../../models/task";
+import {Task, TaskState} from "../../models/task";
 import {FirebaseService} from "../../services/firebase.service";
-import {TaskState} from "../../models/task";
 import {AuthService} from "../../services/auth.service";
 
 
@@ -13,8 +12,9 @@ import {AuthService} from "../../services/auth.service";
 export class TaskListComponent implements OnInit {
   tasks: Task[] = []
   isLoading = true
-  filterApplyed :boolean = false
-  constructor(private firebaseService: FirebaseService ,private authService :AuthService) {
+  filterApplyed: boolean = false
+
+  constructor(private firebaseService: FirebaseService, private authService: AuthService) {
 
   }
 
@@ -28,7 +28,8 @@ export class TaskListComponent implements OnInit {
       }
     });
   }
-  getTasks(){
+
+  getTasks() {
     this.firebaseService.getTasks().subscribe((tasks: Task[]) => {
       this.tasks = tasks
       this.isLoading = false
@@ -36,12 +37,12 @@ export class TaskListComponent implements OnInit {
   }
 
   applyFilter(event: TaskState) {
-    if (event === null ){
+    if (event === null) {
       this.filterApplyed = false
       this.getTasks()
 
-    }else {
-      this.firebaseService.applyFilter(event).subscribe((tasks)=>{
+    } else {
+      this.firebaseService.applyFilter(event).subscribe((tasks) => {
         this.tasks = tasks
         this.filterApplyed = true
 

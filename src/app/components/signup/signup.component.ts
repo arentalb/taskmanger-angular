@@ -12,33 +12,34 @@ import {Router} from "@angular/router";
 export class SignupComponent {
   password: string;
   confirmPassword: string;
-  showInvalidInputs :boolean = false
-  errorMessage :string = null
+  showInvalidInputs: boolean = false
+  errorMessage: string = null
   isLoading = false
-  constructor(private authService :AuthService ,private router :Router){}
 
-  checkPasswordMatch (){
-    return  (this.password === this.confirmPassword)
+  constructor(private authService: AuthService, private router: Router) {
+  }
+
+  checkPasswordMatch() {
+    return (this.password === this.confirmPassword)
   }
 
   signup(f: NgForm) {
     this.isLoading = true
 
-    if (f.valid &&this.checkPasswordMatch()){
-      let user :User ={username:f.value.username ,email: f.value.email,password: f.value.password}
-      this.authService.signup(user).subscribe(()=>{
+    if (f.valid && this.checkPasswordMatch()) {
+      let user: User = {username: f.value.username, email: f.value.email, password: f.value.password}
+      this.authService.signup(user).subscribe(() => {
         this.isLoading = false
         this.router.navigate(['/login']);
-      },error => {
+      }, error => {
         this.isLoading = false
         this.errorMessage = error
       })
-    }else {
+    } else {
       this.isLoading = false
       this.showInvalidInputs = true
     }
   }
-
 
 
 }

@@ -3,11 +3,11 @@ import {AuthService} from "./auth.service";
 import {inject} from "@angular/core";
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const authservice :AuthService =inject(AuthService)
+  const authservice: AuthService = inject(AuthService)
 
-  if (  authservice.isUserLoginedIn()){
+  if (authservice.isUserLoginedIn()) {
     return true;
-  }else {
+  } else {
     return false;
   }
 

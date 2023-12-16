@@ -8,15 +8,16 @@ import {OnlineService} from "./services/online.service";
 })
 export class AppComponent implements OnInit {
   title = 'task manger ';
-  networkMessage: string  = null ;
+  networkMessage: string = null;
 
-  constructor(private onlineService :OnlineService){
+  constructor(private onlineService: OnlineService) {
 
   }
+
   ngOnInit(): void {
-  this.onlineService.isConnected$.subscribe((message)=>{
-    this.networkMessage = message
-  })
+    this.onlineService.isConnected$.subscribe((message) => {
+      this.networkMessage = message
+    })
   }
 
   refreshPage(): void {

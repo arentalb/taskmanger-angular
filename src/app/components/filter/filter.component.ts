@@ -8,16 +8,15 @@ import {Subject} from "rxjs";
   styleUrl: './filter.component.css'
 })
 export class FilterComponent implements OnInit {
+  activeFilter: TaskState
+  toiggleState: boolean = false
+  @Output() filter: Subject<TaskState> = new Subject<TaskState>();
   protected readonly TaskState = TaskState;
 
-  activeFilter :TaskState
-  toiggleState:boolean = false
+  constructor(private cdr: ChangeDetectorRef) {
+  }
 
-  constructor(private cdr: ChangeDetectorRef) {}
-
-  @Output() filter :Subject<TaskState> = new Subject<TaskState>();
-
-  applyFilter(state :TaskState){
+  applyFilter(state: TaskState) {
     this.activeFilter = state
     this.filter.next(state)
   }
@@ -32,6 +31,7 @@ export class FilterComponent implements OnInit {
   toggleFilter() {
     this.toiggleState = !this.toiggleState
   }
+
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.checkScreenWidth();

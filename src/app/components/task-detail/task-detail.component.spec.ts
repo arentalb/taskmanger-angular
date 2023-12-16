@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TaskDetailComponent } from './task-detail.component';
+import {TaskDetailComponent} from './task-detail.component';
 
 describe('TaskDetailComponent', () => {
   let component: TaskDetailComponent;
@@ -10,8 +10,8 @@ describe('TaskDetailComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [TaskDetailComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(TaskDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

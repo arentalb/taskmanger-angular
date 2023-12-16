@@ -9,20 +9,21 @@ import {FirebaseService} from "../../services/firebase.service";
 })
 export class ProfileComponent implements OnInit {
 
-  user :User
+  user: User
   isLoading = true
-  constructor(private firebaseService :FirebaseService) {
+
+  constructor(private firebaseService: FirebaseService) {
   }
 
   ngOnInit(): void {
     const userString = localStorage.getItem('user');
     const userObject = JSON.parse(userString);
-    this.firebaseService.getUserProfile(userObject.email).subscribe((data)=>{
-      this.user =data
-      if (this.user === undefined){
+    this.firebaseService.getUserProfile(userObject.email).subscribe((data) => {
+      this.user = data
+      if (this.user === undefined) {
         this.isLoading = true
 
-      }else {
+      } else {
         this.isLoading = false
 
       }

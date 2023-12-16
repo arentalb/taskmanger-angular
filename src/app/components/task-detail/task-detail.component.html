@@ -1,7 +1,7 @@
 <div class="h-screen bg-gray-200">
 
 
-  <div class="flex justify-center items-center flex-col p-10" >
+  <div class="flex justify-center items-center flex-col p-10">
 
     <div class=" flex justify-start sm:justify-center w-full ">
       <p class="mb-4  font-extrabold leading-none tracking-tight   text-6xl text-gray-800 ">edit task </p>
@@ -10,7 +10,8 @@
       <app-loading></app-loading>
     </div>
 
-    <div *ngIf="task && !isLoading" class="max-w-sm p-6  border flex flex-col justify-between rounded-lg shadow bg-gray-800 border-gray-700 w-80 min-h-full">
+    <div *ngIf="task && !isLoading"
+         class="max-w-sm p-6  border flex flex-col justify-between rounded-lg shadow bg-gray-800 border-gray-700 w-80 min-h-full">
 
 
       <div>
@@ -26,20 +27,20 @@
           {{task.state}}
         </div>
 
-       <div class="mt-10 gap-x-2 flex">
-         <button (click)="onDelete(task.id)" >
-           <img alt="" height="30" src="assets/trash.svg" width="30">
-         </button>
-         <button (click)="onSave()" >
-           <img alt="" height="30" src="assets/save.svg" width="30">
-         </button>
+        <div class="mt-10 gap-x-2 flex">
+          <button (click)="onDelete(task.id)">
+            <img alt="" height="30" src="assets/trash.svg" width="30">
+          </button>
+          <button (click)="onSave()">
+            <img alt="" height="30" src="assets/save.svg" width="30">
+          </button>
 
-       </div>
+        </div>
       </div>
 
     </div>
 
-    <div class="mt-6" *ngIf="!isLoading">
+    <div *ngIf="!isLoading" class="mt-6">
 
       <div
         (click)="onChange(TaskState.inProgress)"

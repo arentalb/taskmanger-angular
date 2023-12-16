@@ -7,20 +7,21 @@ import {Subscription} from "rxjs";
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit ,OnDestroy{
+export class HeaderComponent implements OnInit, OnDestroy {
 
-  isLoggindIn :boolean = false
-  menuState :boolean = false
-  constructor(private authservice : AuthService){
+  isLoggindIn: boolean = false
+  menuState: boolean = false
+  subscription: Subscription
+
+  constructor(private authservice: AuthService) {
 
   }
 
-  subscription :Subscription
   ngOnInit(): void {
-   this.subscription =  this.authservice.loginState.subscribe((condition)=>{
-      if (condition){
+    this.subscription = this.authservice.loginState.subscribe((condition) => {
+      if (condition) {
         this.isLoggindIn = true
-      }else {
+      } else {
         this.isLoggindIn = false
 
       }

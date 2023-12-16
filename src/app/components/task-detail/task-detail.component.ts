@@ -9,21 +9,19 @@ import {FirebaseService} from "../../services/firebase.service";
   styleUrl: './task-detail.component.css'
 })
 export class TaskDetailComponent implements OnInit {
+  task: Task
+  baseState: TaskState
+  isLoading = true
   protected readonly TaskState = TaskState;
 
-
-  task :Task
-  baseState :TaskState
-  isLoading = true
-
-  constructor(private activeRoute :ActivatedRoute , private firebaseService :FirebaseService , private router :Router){
+  constructor(private activeRoute: ActivatedRoute, private firebaseService: FirebaseService, private router: Router) {
 
   }
 
   ngOnInit(): void {
-   let  taskId = this.activeRoute.snapshot.paramMap.get('id');
+    let taskId = this.activeRoute.snapshot.paramMap.get('id');
 
-    this.firebaseService.getTask(taskId).subscribe((task)=>{
+    this.firebaseService.getTask(taskId).subscribe((task) => {
       this.task = task
       this.baseState = task.state
 
@@ -45,26 +43,27 @@ export class TaskDetailComponent implements OnInit {
     }
   }
 
-  onChange(state :TaskState){
+  onChange(state: TaskState) {
     this.task.state = state
   }
+
   onSave() {
-    if (this.baseState != this.task.state){
+    if (this.baseState != this.task.state) {
       this.isLoading = true
 
-      this.firebaseService.updateTask(this.task.id ,this.task.state).subscribe(()=>{
+      this.firebaseService.updateTask(this.task.id, this.task.state).subscribe(() => {
         this.isLoading = false
         this.router.navigate(["/tasks"])
       })
-    }else {
+    } else {
       this.router.navigate(["/tasks"])
     }
   }
 
 
-  onDelete(taskId :string ) {
+  onDelete(taskId: string) {
     this.isLoading = true
-    this.firebaseService.deleteTask(taskId).subscribe(()=>{
+    this.firebaseService.deleteTask(taskId).subscribe(() => {
       this.isLoading = false
       this.router.navigate(["/tasks"])
 
