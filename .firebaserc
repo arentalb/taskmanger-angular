@@ -1,14 +1,16 @@
 {
+  "projects": {
+    "default": "taskmanger-30570",
+    "staging ": "taskmanger-30570"
+  },
   "targets": {
-    "angular-general-practice": {
+    "taskmanger": {
       "hosting": {
-        "angular-general-practice": [
-          "angular-general-practice"
+        "taskmanger": [
+          "taskmanger"
         ]
       }
     }
   },
-  "projects": {
-    "default": "angular-general-practice"
-  }
+  "etags": {}
 }
