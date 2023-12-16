@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {catchError, map, Observable, of} from "rxjs";
 import {OnlineService} from "./services/online.service";
 
 @Component({

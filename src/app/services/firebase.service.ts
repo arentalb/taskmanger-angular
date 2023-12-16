@@ -1,8 +1,8 @@
 import {Injectable, OnInit} from '@angular/core';
 import {Task, TaskState} from "../models/task";
-import {catchError, from, map, Observable, of, switchMap, take, tap, throwError, timeout} from "rxjs";
-import {AngularFireDatabase, AngularFireList} from "@angular/fire/compat/database";
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
+import {catchError, from, map, Observable, switchMap, take, throwError, timeout} from "rxjs";
+import {AngularFireDatabase} from "@angular/fire/compat/database";
+import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {User} from "../models/user";
 import {OnlineService} from "./online.service";
 

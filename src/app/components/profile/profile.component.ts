@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user";
 import {FirebaseService} from "../../services/firebase.service";
-import {Task} from "../../models/task";
 
 @Component({
   selector: 'app-profile',

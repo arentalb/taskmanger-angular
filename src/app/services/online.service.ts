@@ -1,5 +1,5 @@
 import {Injectable, OnInit} from '@angular/core';
-import {BehaviorSubject, catchError, map, Observable, of} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
