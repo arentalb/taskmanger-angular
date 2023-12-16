@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-general-practice": {
+    "taskmanger": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/angular-general-practice",
+            "outputPath": "dist/taskmanger",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-general-practice:build:production"
+              "buildTarget": "taskmanger:build:production"
             },
             "development": {
-              "buildTarget": "angular-general-practice:build:development"
+              "buildTarget": "taskmanger:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "angular-general-practice:build"
+            "buildTarget": "taskmanger:build"
           }
         },
         "test": {
@@ -112,12 +112,12 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "angular-general-practice:build:production",
-              "serveTarget": "angular-general-practice:serve:production"
+              "buildTarget": "taskmanger:build:production",
+              "serveTarget": "taskmanger:serve:production"
             },
             "development": {
-              "buildTarget": "angular-general-practice:build:development",
-              "serveTarget": "angular-general-practice:serve:development"
+              "buildTarget": "taskmanger:build:development",
+              "serveTarget": "taskmanger:serve:development"
             }
           },
           "defaultConfiguration": "production"

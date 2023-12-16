@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "target": "angular-general-practice",
+      "target": "taskmanger",
       "source": ".",
       "frameworksBackend": {}
     }
