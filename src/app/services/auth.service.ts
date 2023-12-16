@@ -1,9 +1,9 @@
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable, OnDestroy, OnInit} from '@angular/core';
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {User} from "../models/user";
 import {Router} from "@angular/router";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {catchError, from, Subject, throwError} from "rxjs";
+import {BehaviorSubject, catchError, from, throwError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(private router :Router ,private fireAuth :AngularFireAuth , private firestore :AngularFirestore) {
   }
-  loginState :Subject<boolean>= new Subject<boolean>()
+  loginState :BehaviorSubject<boolean>= new BehaviorSubject<boolean>(false)
   isUserLoginedIn(){
     if (localStorage.getItem('user')){
       console.log("user exists ")
@@ -32,6 +32,7 @@ export class AuthService {
       console.log("loginein ")
       localStorage.clear()
       localStorage.setItem('user', JSON.stringify(credential.user));
+      this.loginState.next(true)
 
       // console.log(cridential.user)
       // console.log(cridential.credential)
@@ -73,8 +74,10 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.clear()
-    this.router.navigate(['/login'])
-    this.loginState.next(false)
+    this.fireAuth.signOut().then(() => {
+      this.router.navigate(['/login']);
+      localStorage.clear();
+      this.loginState.next(false);
+    });
   }
 }

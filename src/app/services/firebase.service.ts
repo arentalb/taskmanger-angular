@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {Task, TaskState} from "../models/task";
 import {from, map, Observable, of, switchMap, take, tap} from "rxjs";
 import {AngularFireDatabase, AngularFireList} from "@angular/fire/compat/database";
@@ -9,20 +9,27 @@ import {User} from "../models/user";
 @Injectable({
   providedIn: 'root'
 })
-export class FirebaseService {
+export class FirebaseService implements OnInit{
 
   // firebaseList: AngularFireList<Task>
   userUID :string = null
   constructor(private firebaseDatabase: AngularFireDatabase ,  private firestore :AngularFirestore) {
+
+
+  }
+  ngOnInit() {
+    this.getUserUid()
+  }
+  getUserUid(){
     // this.firebaseList = firebaseDatabase.list(`tasks/${this.userUID}`)
     const userString = localStorage.getItem('user');
     const userObject = JSON.parse(userString);
     this.userUID = userObject.uid;
-
   }
 
 
   getTasks(): Observable<Task[]> {
+    this.getUserUid()
     return this.firebaseDatabase.list(`tasks/${this.userUID}`).snapshotChanges().pipe(
       map(actions => {
         return actions.map(action => {
