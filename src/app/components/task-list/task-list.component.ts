@@ -12,7 +12,7 @@ import {AuthService} from "../../services/auth.service";
 export class TaskListComponent implements OnInit {
   tasks: Task[] = []
   isLoading = true
-
+  filterApplyed :boolean = false
   constructor(private firebaseService: FirebaseService ,private authService :AuthService) {
 
   }
@@ -36,11 +36,14 @@ export class TaskListComponent implements OnInit {
 
   applyFilter(event: TaskState) {
     if (event === null ){
+      this.filterApplyed = false
       this.getTasks()
 
     }else {
       this.firebaseService.applyFilter(event).subscribe((tasks)=>{
         this.tasks = tasks
+        this.filterApplyed = true
+        console.log(this.tasks)
       })
     }
 

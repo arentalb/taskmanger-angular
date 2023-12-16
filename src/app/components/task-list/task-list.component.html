@@ -12,9 +12,13 @@
   <div *ngIf="!isLoading">
     <app-filter (filter)="applyFilter($event)"></app-filter>
   </div>
-  <div *ngIf="!isLoading" class="flex justify-evenly mt-10 flex-wrap gap-2">
-
+  <div *ngIf="!isLoading && tasks" class="flex justify-evenly mt-10 flex-wrap gap-2">
     <app-task *ngFor="let task of tasks" [task]="task"></app-task>
+  </div>
+  <div *ngIf=" !isLoading && tasks.length ===0 " class="flex justify-center items-center">
+    <p class="  mb-4  font-semibold leading-none tracking-tight   text-4xl text-gray-600 text-center sm:text-start ">
+      {{ (tasks.length === 0  && filterApplyed)? 'No tasks match the selected filter.' : 'No tasks.' }}
+    </p>
 
   </div>
 
