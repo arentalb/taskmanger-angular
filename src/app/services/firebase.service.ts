@@ -1,9 +1,10 @@
 import {Injectable, OnInit} from '@angular/core';
 import {Task, TaskState} from "../models/task";
-import {from, map, Observable, of, switchMap, take, tap} from "rxjs";
+import {catchError, from, map, Observable, of, switchMap, take, tap, throwError, timeout} from "rxjs";
 import {AngularFireDatabase, AngularFireList} from "@angular/fire/compat/database";
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
 import {User} from "../models/user";
+import {OnlineService} from "./online.service";
 
 
 @Injectable({
@@ -13,7 +14,7 @@ export class FirebaseService implements OnInit{
 
   // firebaseList: AngularFireList<Task>
   userUID :string = null
-  constructor(private firebaseDatabase: AngularFireDatabase ,  private firestore :AngularFirestore) {
+  constructor(private firebaseDatabase: AngularFireDatabase , private onlineService :OnlineService , private firestore :AngularFirestore) {
 
 
   }
@@ -28,9 +29,11 @@ export class FirebaseService implements OnInit{
   }
 
 
+
   getTasks(): Observable<Task[]> {
     this.getUserUid()
-    return this.firebaseDatabase.list(`tasks/${this.userUID}`).snapshotChanges().pipe(
+    return this.handleRequest(
+     this.firebaseDatabase.list(`tasks/${this.userUID}`).snapshotChanges().pipe(
       map(actions => {
         return actions.map(action => {
           const key = action.payload.key as string;
@@ -38,11 +41,12 @@ export class FirebaseService implements OnInit{
           return { id: key, ...data };
         });
       })
-    );
+    ))
   }
 
   getTask(taskId: string): Observable<Task> {
-    return this.firebaseDatabase.list(`tasks/${this.userUID}`).snapshotChanges().pipe(
+    return this.handleRequest(
+     this.firebaseDatabase.list(`tasks/${this.userUID}`).snapshotChanges().pipe(
       map(actions => {
         return actions.map(action => {
           const key = action.payload.key as string;
@@ -51,13 +55,13 @@ export class FirebaseService implements OnInit{
         });
       }),
       map(tasks => tasks.find(task => task.id === taskId))
-    );
+    ))
   }
 
   createTask(task: Task): Observable<string> {
     const newTaskRef = this.firebaseDatabase.list(`tasks/${this.userUID}`).push(task);
-
-    return from(newTaskRef).pipe(
+    return this.handleRequest(
+     from(newTaskRef).pipe(
       switchMap((result) => {
         const taskId = result.key;
         const updatedTask: Task = { ...task, id: taskId };
@@ -67,27 +71,32 @@ export class FirebaseService implements OnInit{
       }),
       map(() => 'created'),
       take(1)
-    );
+    ));
   }
 
   updateTask(taskId: string, taskState: TaskState):Observable<void> {
-    const taskRef = this.firebaseDatabase.object<Task>(`/tasks/${this.userUID}/${taskId}`);
 
-    return from(taskRef.update({ state: taskState })).pipe(
+    const taskRef = this.firebaseDatabase.object<Task>(`/tasks/${this.userUID}/${taskId}`);
+    return this.handleRequest(
+
+     from(taskRef.update({ state: taskState })).pipe(
       take(1)// if your double-clicked quickly it only take one of them
-    )
+    ))
   }
 
   deleteTask(taskId: string):Observable<void> {
     const taskRef = this.firebaseDatabase.object<Task>(`/tasks/${this.userUID}/${taskId}`);
+    return this.handleRequest(
 
-    return from(taskRef.remove()).pipe(
+     from(taskRef.remove()).pipe(
       take(1)// if your double-clicked quickly it only take one of them
-    )
+    ))
   }
 
   applyFilter(filterState: TaskState): Observable<Task[]> {
-    return this.firebaseDatabase.list(`tasks/${this.userUID}`, ref => ref.orderByChild('state').equalTo(filterState)).snapshotChanges().pipe(
+    return this.handleRequest(
+
+     this.firebaseDatabase.list(`tasks/${this.userUID}`, ref => ref.orderByChild('state').equalTo(filterState)).snapshotChanges().pipe(
       map(actions => {
         return actions.map(action => {
           const key = action.payload.key as string;
@@ -95,13 +104,14 @@ export class FirebaseService implements OnInit{
           return { id: key, ...data };
         });
       })
-    );
+    ))
   }
 
   getUserProfile(userEmail: string): Observable<User | undefined> {
-    const userCollection: AngularFirestoreCollection<User> = this.firestore.collection('users', ref => ref.where('email', '==', userEmail));
 
-    return userCollection.snapshotChanges().pipe(
+    const userCollection: AngularFirestoreCollection<User> = this.firestore.collection('users', ref => ref.where('email', '==', userEmail));
+    return this.handleRequest(
+     userCollection.snapshotChanges().pipe(
       map(actions => {
         const user = actions.map(a => {
           const data = a.payload.doc.data() as User;
@@ -114,6 +124,20 @@ export class FirebaseService implements OnInit{
         } else {
           return undefined;
         }
+      })
+    ))
+  }
+  private handleRequest<T>(observable: Observable<T>): Observable<T> {
+    return observable.pipe(
+      timeout(10000),
+      take(1),
+      catchError((error) => {
+        if (error.message === 'Timeout has occurred') {
+          this.onlineService.isConnected$.next('You are not connected to the internet.');
+        } else {
+          this.onlineService.isConnected$.next('Internal server error occurred.');
+        }
+        return throwError('');
       })
     );
   }

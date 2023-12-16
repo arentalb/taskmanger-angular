@@ -3,6 +3,8 @@ import {Task} from "../../models/task";
 import {FirebaseService} from "../../services/firebase.service";
 import {TaskState} from "../../models/task";
 import {AuthService} from "../../services/auth.service";
+import {take, timeout} from "rxjs";
+import {OnlineService} from "../../services/online.service";
 
 @Component({
   selector: 'app-task-list',

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user";
 import {FirebaseService} from "../../services/firebase.service";
+import {Task} from "../../models/task";
 
 @Component({
   selector: 'app-profile',
@@ -19,8 +20,16 @@ export class ProfileComponent implements OnInit {
     const userObject = JSON.parse(userString);
     this.firebaseService.getUserProfile(userObject.email).subscribe((data)=>{
       this.user =data
-      this.isLoading = false
+      if (this.user === undefined){
+        this.isLoading = true
+
+      }else {
+        this.isLoading = false
+
+      }
+      console.log(this.user)
     })
 
   }
+
 }

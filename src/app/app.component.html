@@ -1,3 +1,12 @@
+<div *ngIf="networkMessage != null " class="rounded-md fixed  flex-col top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-red-700 text-white text-center p-4 ">
+    <p>    {{networkMessage}}
+    </p>
+
+  </div>
+  <button (click)="refreshPage()" class="mt-4 px-4 py-2 bg-blue-400 text-white rounded-md">Refresh</button>
+
+</div>
 <app-header></app-header>
   <router-outlet></router-outlet>
 
